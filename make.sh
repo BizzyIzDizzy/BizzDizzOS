@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Compilers
+OS_COMPILER="i686-elf-gcc"
+OS_LINKER="i686-elf-ld"
+
 # Files with sources
 NASMF="./asm/"
 CPPF="./src/"
@@ -42,7 +46,7 @@ function CompileC(){
 		input=$1
 		output="${1%.c}.o"
 		echo "Compiling file \"$input\"!"
-		cc $CFLAGS $OUTPUT$output $CF$input || printf "Compiling failed! Check the file for errors!\n\n"
+		$OS_COMPILER $CFLAGS $OUTPUT$output $CF$input || printf "Compiling failed! Check the file for errors!\n\n"
 		if [ -a $OUTPUT$output ]; then
 			printf "Compiling was a success! Output file = $output!\n\n"
 			LDSRC="$LDSRC $OUTPUT$output"
@@ -50,24 +54,8 @@ function CompileC(){
 		shift
 	done
 }
-function CompileCpp(){
-	printf "\n"
-	while((${#1}!=0)); do
-		printf "\n"
-		input=$1
-		output="${1%.cpp}.o"
-		echo "Compiling file \"$input\"!"
-		FLAG="-o $output -c $CPPF$input $CPPFLAGS"
-		c++ $FLAG || printf "Compiling failed! Check the file for errors!\n\n"
-		if [ -a $OUTPUT$output ]; then
-			printf "Compiling was a success! Output file = $output!\n\n"
-			LDSRC="LDSRC $OUTPUT$output"
-		fi
-		shift
-	done
-}
 function Link(){
-	ld $LDFLAGS $KERNEL $LDSRC || printf "Linking failed!\n\n"
+	$OS_LINKER $LDFLAGS $KERNEL $LDSRC || printf "Linking failed!\n\n"
 	if [ -a $KERNEL ]; then
 		printf "Linkig was a success! Kernel file = $KERNEL!\n\n"
 	fi
