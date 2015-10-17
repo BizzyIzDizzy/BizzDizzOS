@@ -3,6 +3,7 @@
 # Compilers
 OS_COMPILER="i686-elf-gcc"
 OS_LINKER="i686-elf-ld"
+OS_ASSEMBLER="nasm"
 
 # Files with sources
 NASMF="./asm/"
@@ -26,6 +27,11 @@ OUTPUT="./object/"
 OUTKERNEL="./kernel/"
 KERNEL="./kernel/kernel.bin"
 
+function CheckPrerequisites(){
+	command -v $OS_COMPILER >/dev/null 2>&1 || { echo >&2 "Compiler '$OS_COMPILER' required but it's not installed.  Aborting."; exit 1; }
+	command -v $OS_LINKER >/dev/null 2>&1 || { echo >&2 "Linker '$OS_LINKER' required but it's not installed.  Aborting."; exit 1; }
+	command -v $OS_ASSEMBLER >/dev/null 2>&1 || { echo >&2 "Assembler '$OS_ASSEMBLER' required but it's not installed.  Aborting."; exit 1; }
+}
 function Assemble(){
 	while((${#1}!=0)); do
 		printf "\n"
@@ -90,6 +96,8 @@ function Prepare(){
 		mkdir $OUTPUT
 	fi
 }
+
+CheckPrerequisites
 
 case $1 in
 	(help|h)
