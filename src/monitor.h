@@ -3,7 +3,7 @@
 #ifndef MONITOR_H
 #define MONITOR_H
 
-#include <common.h>
+#include "common.h"
 
 // write a single character out to the screen
 void monitor_put(char c);

@@ -7,7 +7,7 @@
 
 #ifndef DESCRIPTOR_TABLES_H_
 #define DESCRIPTOR_TABLES_H_
-#include <common.h>
+#include "common.h"
 // This structure contains the value of one GDT entry.
 // We use the attribute packed to tell GCC not to change
 // any of the alignment in the structure

@@ -14,8 +14,7 @@ LDSCRIPT="link.ld"
 LDSRC=""
 # Flags for compiling and linking
 NASMFLAGS="-felf -o "
-CPPFLAGS="-Wall -Wextra -Werror -nostdlib -fno-builtin -nostartfiles -nodefaultlibs -fno-exceptions -fno-rtti -fno-stack-protector -nostdinc"
-CFLAGS="-nostdlib -nostdinc -fno-builtin -fno-stack-protector -I./include -c -o "
+CFLAGS="-nostdlib -nostdinc -fno-builtin -fno-stack-protector -c -o "
 LDFLAGS=" -T $LDSCRIPT -o "
 # Sources for compiling
 NASMSRC="boot.s interrupt.s gdt.s"
@@ -144,7 +143,6 @@ case $1 in
 		Prepare;		
 		Assemble $NASMSRC;
 		CompileC $CSRC;
-		CompileCpp $CPPSRC
 		Link;
 		Clean;;
 	(*)

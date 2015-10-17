@@ -1,6 +1,6 @@
 #ifndef STRING_H
 #define STRING_H
-#include <common.h>
+#include "common.h"
 
 void intToHexStr(u32int n, char *buffer);
 void intToBinStr(u32int n, char *buffer);
